@@ -29,20 +29,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh 'mvn clean package'  
-                sh 'ansible-playbook playbook.yml -i host.ini'
+                sh '/usr/bin/ansible-playbook playbook.yml -i host.ini'
             }
         }
      
         
     }
-
-    post {
-        success {
-            echo 'Build and deployment successful!'
-        }
-        failure {
-            echo 'Build failed!'
-        }
-    }
-
 }
