@@ -1,0 +1,15 @@
+---
+- name: Deploy to Tomcat
+  hosts: web
+  become: yes
+  tasks:
+    - name: copy WAR file to Tomcat
+      copy: 
+         src: "/var/snap/jenkins/5004/workspace/mvnansible/target/mvnansible.war"
+         dest: "/opt/tomcat/webapps/mvnansible.war"
+         remote_src: no
+         
+    -name: Restart Tomcat
+    systemd:
+       name: tomcat
+       state: restarted
